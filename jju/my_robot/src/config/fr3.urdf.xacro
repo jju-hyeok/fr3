@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="fr3">
+
+  <!-- upstream 공용 매크로만 include -->
+  <xacro:include filename="$(find franka_description)/robots/common/franka_robot.xacro"/>
+
+  <!-- 필요한 arg들 -->
+  <xacro:arg name="hand" default="true" />
+  <xacro:arg name="ee_id" default="franka_hand" />
+  <xacro:arg name="special_connection" default="" />
+  <xacro:arg name="xyz_ee" default="0 0 0" />
+  <xacro:arg name="rpy_ee" default="0 0 ${-pi/4}" />
+  <xacro:arg name="tcp_xyz" default="0 0 0.1034" />
+  <xacro:arg name="tcp_rpy" default="0 0 0" />
+  <xacro:arg name="safety_distance" default="0.03" />
+  <xacro:arg name="with_sc" default="false" />
+
+  <!-- 핵심: ros2_control/robot_ip/가짜하드웨어 플래그 -->
+  <xacro:arg name="ros2_control" default="true"/>
+  <xacro:arg name="robot_ip" default="172.16.0.2"/>
+  <xacro:arg name="use_fake_hardware" default="false"/>
+  <xacro:arg name="fake_sensor_commands" default="false"/>
+
+  <xacro:franka_robot arm_id="fr3"
+                      joint_limits="${xacro.load_yaml('$(find franka_description)/robots/fr3/joint_limits.yaml')}"
+                      inertials="${xacro.load_yaml('$(find franka_description)/robots/fr3/inertials.yaml')}"
+                      kinematics="${xacro.load_yaml('$(find franka_description)/robots/fr3/kinematics.yaml')}"
+                      dynamics="${xacro.load_yaml('$(find franka_description)/robots/fr3/dynamics.yaml')}"
+                      hand="$(arg hand)"
+                      ee_id="$(arg ee_id)"
+                      special_connection="$(arg special_connection)"
+                      xyz_ee="$(arg xyz_ee)"
+                      rpy_ee="$(arg rpy_ee)"
+                      tcp_xyz="$(arg tcp_xyz)"
+                      tcp_rpy="$(arg tcp_rpy)"
+                      safety_distance="$(arg safety_distance)"
+                      with_sc="$(arg with_sc)"
+                      ros2_control="$(arg ros2_control)"
+                      robot_ip="$(arg robot_ip)"
+                      use_fake_hardware="$(arg use_fake_hardware)"
+                      fake_sensor_commands="$(arg fake_sensor_commands)"
+                      connected_to="base" />
+</robot>
+
